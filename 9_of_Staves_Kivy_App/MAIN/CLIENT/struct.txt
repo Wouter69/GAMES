@@ -1,37 +1,48 @@
-#TODO:::  
-######## 1) FIX_ELIM_::UPDATE() 1/2
-######## 1) ADS_ 1/3
-######## 2) SCORES... 0/3
-######## 3) 
-######## 4) 
+LOADING::SCREEN::
+        LOADING -> LOGIN/REGISTER
+
+LOGIN/REGISTER::SCREEN::
+        LOGIN -> LOGIN
+        REGISTER - > REGISTER
+
+LOGIN::SCREEN::
+        LOGIN::CHECK -> SERVER
+            if TRUE::
+                -> HOME
+
+REGISTER::SCREEN::
+        REGISTER::CAPTURE
+            if TRUE::
+                -> HOME
+
+HOME::SCREEN::
+        'DISPLAYED_DETAILS'
+        QUIT -> LOADING
+        START -> LOBBY
+        SP_CARDS -> ADS_BANK
+
+LOBBY::SCREEN::
+        READY ->> SETS_SERVER(FOR MATCH)::
+                if MATCH:
+                        -> MAIN_WIDGET(GAME_BOARD)
+        QUIT(BACK) -> HOME
+
+GAME_BOARD::SCREEN::
+        QUIT -> HOME::
+                {CLEARS ALL FILE(S') DATA}
 
 
-import time
-
-from pexpect import ExceptionPexpect
-from conns import connections
-
-
-import string
-import threading
-
-from kivymd.app import MDApp
-from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.lang import Builder
-from kivy.properties import ObjectProperty
-from kivy.core.window import Window
-from kivy.uix.pagelayout import PageLayout
-from kivy.uix.widget import Widget
-from kivy.uix.button import Button
-from kivy.uix.image import Image
-
-from kivy.clock import Clock
-
-from file_handle_C import File_man
 
 
 
-Window.size = (300, 560)
+
+
+
+
+
+
+
+
 
 
 
@@ -274,24 +285,20 @@ class MainWidget(Screen):
         #UPDATER
         Clock.schedule_interval(self.UPADTE, 1)
 
-
-
     def home_it(self):
-        
+        self.FM.write_file("GAME.txt", "QUIT", "w")        
         self.pos_update("QUIT")
-        MDApp.get_running_app().root.current = 'Page'
-
-
-    def home(self):
-        print("GO_HOME")
-        MDApp.get_running_app().root.current = 'Page'
-
+        self.FM.write_file("SERVER.txt", "", "w")
+        time.sleep(1.5)
+        self.FM.write_file("game_over.txt", "", "w")
+        self.FM.write_file("GAME.txt", "", "w")
+        MDApp.get_running_app().root.current = 'Home'
 
     def score_track(self):
         deck_count = 0
         opp_table_count = 0
         table_count = 0
-        print("****************************\nSCORE_TRACKER\n****************************")
+        #print("****************************\nSCORE_TRACKER\n****************************")
         try:
             #COUNT TO SEE IF DECK IS EMPTY
             for id_ in self.ids:
@@ -328,9 +335,8 @@ class MainWidget(Screen):
                 return
 
             if deck_count > 0:
-                print("DECK_COUNT:::", str(deck_count))
+                #print("DECK_COUNT:::", str(deck_count))
                 return
-            
             
             #CHECK IF GAME IS OVER
             if deck_count < 1:
@@ -348,7 +354,7 @@ class MainWidget(Screen):
                         except Exception as e:
                             print("TIE:ERROR", str(e))
                         self.FM.write_file("game_over.txt", "WINNER", "w")
-#                        self.pos_update("END@TIE")
+                       self.pos_update("END@TIE")
 
                     if self.my_point > self.opp_point:
                         print("#*#*#*#*#$$$$$$$\n\n!!!YOU_WIN!!!\n")
@@ -820,11 +826,6 @@ class MainWidget(Screen):
 
 
 
-
-
-
-
-
         return
 
     #DATA_UPDATER_::->SERVER
@@ -1087,15 +1088,15 @@ class MainWidget(Screen):
                 if "TEST" in str(key):
                     if key not in self.ids_l:
                         self.ids_l.append(key)
-                        print("LISTING:TEST: ", key, "::TEST_#")
+                        #print("LISTING:TEST: ", key, "::TEST_#")
                 if "FTR" in str(key):
                     if "Opp" not in str(key):
                         if key not in self.ftr_c_s:
-                            print("LISTING:FTR:MINE: ", key, "::FTR_C_S")
+                            #print("LISTING:FTR:MINE: ", key, "::FTR_C_S")
                             self.ftr_c_s.append(key)
                     if "Opp" in str(key):
                         if key not in self.ftr_c_opp:
-                            print("LISTING:FTR:_OPP: ", key, "::FTR_C_OPP")
+                            #print("LISTING:FTR:_OPP: ", key, "::FTR_C_OPP")
                             self.ftr_c_opp.append(key)
         except Exception as e:
             print("DECK_CREATAION ERROR:: ", str(e))
@@ -1103,6 +1104,7 @@ class MainWidget(Screen):
         deck = self.FM.read_file("SERVER.txt")
         deck_list = str(deck)
         card_set = deck_list.split("@")
+
 
         if "END" in card_set:
             print("*#*#*#*#*#*#**#*#*#*#*#*#**#*#*#**#*#*#**#*#")
@@ -1124,7 +1126,10 @@ class MainWidget(Screen):
 
                 if "QUIT" in card:
                     print("OPPONENT_QUIT")
-                    MDApp.get_running_app().root.current = 'Page'
+                    self.FM.write_file("GAME.txt", "", "w")
+                    self.FM.write_file("SERVER.txt", "", "w")
+                    self.FM.write_file("gome_over.txt", "", "w")
+                    MDApp.get_running_app().root.current = "Home"
 
 
                 #READ ALL CARD VALUES AND ->> IDS
@@ -1324,109 +1329,3 @@ class MainWidget(Screen):
             return
         except Exception as e:
             print(str(e), "OPP_SHIFT_ERROR")
-
-class Score(Screen):
-    def __init__(self, **kw):
-        super().__init__(**kw)
-        self.FM = File_man()
-        win = str(self.FM.read_file("game_over.txt"))
-        print("WIN:?0", win)
-        self.ids['back'].text = str(win)
-        print("DONE")
-
-class AdsBank(Screen):
-    def __init__(self, **kw):
-        super().__init__(**kw)
-        pass
-    def play(self):
-        print("PLAYING_ADD")
-        self.ids['back'].text = "DONE"
-        time.sleep(1)
-        MDApp.get_running_app().root.current ="Page"
-
-class Page(Screen):
-    def __init__(self, **kw):
-        super(Page, self).__init__(**kw)
-        self.FM = File_man()
-        self.sp_cards = ["0","1","2","3"]
-        self.ads_bank = ""
-        self.ads_count = 0
-    def move(self):
-        print("[GAME_STARTED]")
-        MDApp.get_running_app().root.current ="MainWidget"
-        self.FM.write_file("GAME.txt", "START@", "w")
-    #OFFER_WALL
-    #************^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-    def ads(self):
-        if self.ads_count == 3:
-            print("OUT_OF_ADS")
-            return
-#            self.ids[AdsBank].disabled=True
-        print("PLAYING ADD")
-        self.ads_count+=1
-        MDApp.get_running_app().root.current ="AdsBank"
-
-
-        if self.ads_count == 1:
-            self.ads_bank += "ONE"
-            self.FM.write_file("ADS_BANK.txt", self.ads_bank, "w")
-        if self.ads_count == 2:
-            self.ads_bank += "TWO"
-            self.FM.write_file("ADS_BANK.txt", self.ads_bank, "w")
-        if self.ads_count == 3:
-            self.ads_bank += "THREE"
-            self.FM.write_file("ADS_BANK.txt", self.ads_bank, "w")
-
-        print("ADD COMPLETE:: \nCOUNT:: ",self.ads_count)
-
-class MyMDApp(MDApp):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        #IMPORT CONTROL
-        self.FM = File_man()
-        self.conn = connections()
-        self.FM.write_file("GAME.txt", "", "w")
-        self.FM.write_file("SERVER.txt", "", "w")
-        self.FM.write_file("ADS_BANK.txt", "", "w")
-
-
-        self.recv = threading.Thread(target=self.conn.get_msg)
-        self.watch = threading.Thread(target=self.conn.send_msg)
-        try:
-            self.recv.start()
-            self.watch.start()
-        except:
-            print("\n\n!!INIT_CONNECTION_ERROR!!\n\n")
-    def build(self):
-        #REMEMBER TO UPDATE ALL FILES ON STARTUP
-        Builder.load_file("main.kv")
-
-        self.screenM = ScreenManager()
-
-        self.SC = Score()
-        screen = Screen(name="Score")
-        screen.add_widget(self.SC)
-        self.screenM.add_widget(screen)
-
-        self.MW = MainWidget()
-        screen = Screen(name="MainWidget")
-        screen.add_widget(self.MW)
-        self.screenM.add_widget(screen)
-
-        self.AB = AdsBank()
-        screen = Screen(name="AdsBank")
-        screen.add_widget(self.AB)
-        self.screenM.add_widget(screen)
-
-        self.P = Page()
-        screen = Screen(name="Page")
-        screen.add_widget(self.P)
-        self.screenM.add_widget(screen)
-        self.screenM.current="Page"
-
-        return self.screenM
-
-if __name__=="__main__":
-    M = MyMDApp()
-    M.run()

@@ -1,5 +1,3 @@
-
-
 import os
 from cryptography.fernet import Fernet
 from pathlib import Path
@@ -55,11 +53,6 @@ class File_man():
         path = Path(path_to_file)
 
         if path.is_file():
-            
-            #user_auth
-            #DO A STRING COMPARE TO SEE IF THE PASSWORD MATCHES
-            # #####!*!*!*!*!*!
-            
             file_data = self.read_file(file_name)
             print(f'[file exists] : {file_name}')
             print(f'[FILE_DATA]   : {file_data}')
@@ -70,10 +63,7 @@ class File_man():
             return False
 
     
-
-
-
-#FOR LATER ON...
+    
     
     def load_key(self):   
         """
