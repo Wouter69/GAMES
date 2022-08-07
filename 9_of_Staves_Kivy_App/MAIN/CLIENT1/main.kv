@@ -1,0 +1,455 @@
+<LR>:
+    MDFloatLayout:
+        Button:
+            id: Login
+            text: 'LOGIN'
+            size_hint: 1, .5
+            pos_hint: {'x': 0.0,'y': 0.5}
+            on_press: root.Login()
+        Button:
+            id: Register
+            text: "REGISTER"
+            size_hint: 1, .5
+            pos_hint: {'x': 0.0,'y': 0.0}
+            on_press: root.Register()
+
+<Home>:
+    MDFloatLayout:
+        orientation: 'vertical'
+
+        Image:
+            pos_hint: {'x': 0.0,'y': -0.2}
+            size_hint: 1.5, 1.5
+            source: "ASSETS/BACKGROUND.jpeg"
+            allow_stretch: True
+
+
+        Button:
+            text:'9 of Staves'
+            font_size: 29
+            background_normal: 'ASSETS/wood1.jpeg'
+            color: (0, 0, 0, 1)
+            size_hint: .8, .1
+            pos_hint: {'x': 0.105,'y': 0.9}
+            on_press: root.LR()
+
+        Button:
+            id: Icon_
+            text:'ICON'
+            size_hint: .25, .2
+            pos_hint: {'x': 0.105,'y': 0.6}
+            on_press: root.on_start()
+
+        Button:
+            id: Player
+            text:'PLAYER'
+            size_hint: .6, .2
+            pos_hint: {'x': 0.355,'y': 0.6}
+            on_press: root.on_start()
+
+        Button:
+            text: "START"
+            background_normal: "ASSETS/wood2.jpeg"
+            font_size: 25
+            color: (210/255, 151/255, 32/255, 1)#USE COLOR PICKER
+            size_hint: .8, .2
+            pos_hint: {'x': 0.105,'y': 0.3}# 0.2, .4
+            on_press: root.move()
+
+        Button:
+            id: spc
+            background_normal: "ASSETS/wood2.jpeg"
+            font_size: 25
+            color: (0, 0, 0, 1)
+            text: "SP_CARDS"
+            size_hint: .8, .20
+            pos_hint: {'x': 0.105,'y': 0.01}
+            on_press: root.ads()
+
+
+<Register>:
+    MDFloatLayout:
+        Button:
+            text: "REGISTER_PAGE"
+            size_hint: 1, .1
+            pos_hint: {'x': 0.0,'y': 0.9}
+
+
+        #OPTIONAL ICONS
+        ToggleButton:
+            id: Male
+            text:'Male'
+            size_hint: .35, .25
+            pos_hint: {'x': 0.50,'y': 0.65}
+            on_press: root.icon_select("Male")
+        ToggleButton:
+            id: Female
+            text:'Female'
+            size_hint: .35, .25
+            pos_hint: {'x': 0.15,'y': 0.65}
+            on_press: root.icon_select('Female')
+
+        TextInput:
+            id: Name
+            hint_text: 'NAME'
+            size_hint: 1, .15
+            pos_hint: {'x': 0.0,'y': 0.5}
+
+        TextInput:
+            id: Day_Date
+            hint_text: '00'
+            size_hint: .3, .15
+            pos_hint: {'x': 0.0,'y': 0.35}
+
+        TextInput:
+            id: Month_Date
+            hint_text: '00'
+            size_hint: .3, .15
+            pos_hint: {'x': 0.3,'y': 0.35}
+
+        TextInput:
+            id: Year_Date
+            hint_text: '0000'
+            size_hint: .6, .15
+            pos_hint: {'x': 0.6,'y': 0.35}
+
+        TextInput:
+            id: Country
+            hint_text: 'Country'
+            size_hint: 1, .15
+            pos_hint: {'x': 0.0,'y': 0.2}
+
+        Button:
+            text: "REGISTER"
+            size_hint: 1, .2
+            pos_hint: {'x': 0.0,'y': 0.0}
+            on_press: root.Register()
+
+<Welcome>:
+    MDFloatLayout:
+        Button:
+            id: Welcome
+            text: 'Welcome'
+            on_press: root.home()
+<Login>:
+    MDFloatLayout:
+        Button:
+            text: "REGISTER_PAGE"
+            size_hint: 1, .2
+            pos_hint: {'x': 0.0,'y': 0.8}
+
+        TextInput:
+            id: Name
+            hint_text: 'NAME'
+            size_hint: 1, .2
+            pos_hint: {'x': 0.0,'y': 0.6}
+
+        TextInput:
+            id: Birth_DAY
+            hint_text: 'Birth_DAY'
+            size_hint: .2, .2
+            pos_hint: {'x': 0.0,'y': 0.4}
+        TextInput:
+            id: Birth_MONTH
+            hint_text: 'Birth_MONTH'
+            size_hint: .2, .2
+            pos_hint: {'x': 0.2,'y': 0.4}
+        TextInput:
+            id: Birth_YEAR
+            hint_text: 'Birth_YEAR'
+            size_hint: .3, .2
+            pos_hint: {'x': 0.4,'y': 0.4}
+
+
+        Button:
+            id: Login
+            text: "LOGIN"
+            size_hint: 1, .2
+            pos_hint: {'x': 0.0,'y': 0.2}
+            on_press: root.go()
+
+
+<Lobby>:
+    MDFloatLayout:
+        Button:
+            id: Lobby
+            text: 'READY?'
+            size_hint: 1, .5
+            pos_hint: {'x': 0.0,'y': 0.5}
+            on_press: root.Ready()
+        Button:
+            id: Back
+            text: "BACK"
+            size_hint: 1, .5
+            pos_hint: {'x': 0.0,'y': 0.0}
+            on_press: root.Back()
+
+
+
+<Loading>:
+    BoxLayout:
+        orientation: "vertical"
+        canvas.before:
+            Rectangle:
+                id: png
+                source: "ASSETS/BACKGROUND.png"
+                size: self.size
+                pos: self.pos
+
+        Image:
+            id: png
+            source: "ASSETS/LogoW.png"
+
+            size_hint: 1, .3
+
+        Image:
+            id: zip
+            source: "ASSETS/AirLoading.zip"
+            anim_delay: .1
+            anim_loop: 1
+
+            size_hint: 1, .6
+
+        Button:
+            background_color: 0,1,0,1
+            on_press: root.Start()
+            size_hint: None, None
+            size: '80dp', '40dp'
+            pos_hint: {"center_x": .5}
+
+        Label:
+            text: "Powered by Wayfinder Realm"
+            font_name: "ASSETS/Celtic Garamond the 2nd"
+            font_size: 12
+
+            size_hint: 1, .1
+
+<AdsBank>:
+    id: AdsBank
+    MDFloatLayout:
+        Button: 
+            text: "PLAYING_AD"
+            id: back
+            on_press: root.play()
+
+
+<Score>:
+
+    id: Score
+    Button:
+        id: back
+        text:'GAME_OVER'
+        on_press: root.home()
+
+
+
+
+
+#MAIN_DECK_LIST
+<Recycle>:
+    #MAIN T_M_B CARDS
+    do_scroll_x: True
+    orientation:'horizontal'
+    GridLayout:
+        rows: 1      
+
+        size_hint_x: 3.5
+        size_hint_min_x: None
+        Button:
+            on_press: print("FUCKIT1")
+        Button:
+            id: bone
+        Button:
+            id: btwo
+        Button:
+            id: bthree
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+            on_press: print("FUCKIT2")
+<RecycleOne>:
+    #RUNE CARDS
+    do_scroll_x: True
+    orientation:'horizontal'
+    GridLayout:
+        rows: 1      
+
+        size_hint_x: 3.5
+        size_hint_min_x: None
+        Button:
+            on_press: print("FUCKIT1")
+        Button:
+            id: bone
+        Button:
+            id: btwo
+        Button:
+            id: bthree
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+            on_press: print("FUCKIT2")
+<RecycleTwo>:
+    #SP_CARDS
+    do_scroll_x: True
+    orientation:'horizontal'
+    GridLayout:
+        rows: 1      
+
+        size_hint_x: 3.5
+        size_hint_min_x: None
+        Button:
+            background_normal: "ASSETS/JOKER.jpg"
+            on_press: print("FUCKIT1")
+            on_release: root.card()
+        Button:
+            background_normal: "ASSETS/JOKER.jpg"
+            id: bone
+        Button:
+            background_normal: "ASSETS/JOKER.jpg"
+            id: btwo
+        Button:
+            background_normal: "ASSETS/JOKER.jpg"
+            id: bthree
+        Button:
+            background_normal: "ASSETS/JOKER.jpg"
+        Button:
+            background_normal: "ASSETS/JOKER.jpg"
+        Button:
+            background_normal: "ASSETS/JOKER.jpg"
+        Button:
+            background_normal: "ASSETS/JOKER.jpg"
+        Button:
+            background_normal: "ASSETS/JOKER.jpg"
+        Button:
+            background_normal: "ASSETS/JOKER.jpg"
+        Button:
+            background_normal: "ASSETS/JOKER.jpg"
+        Button:
+            background_normal: "ASSETS/JOKER.jpg"
+
+        Button:
+            background_normal: "ASSETS/JOKER.jpg"
+            on_press: print("FUCKIT2")
+
+<TABS>:
+    do_default_tab: False
+    TabbedPanelItem:
+        id: MAIN
+        text: "MAIN"
+        icon: "home"
+        Recycle:
+
+    TabbedPanelItem:
+        id: RUNES
+        text: "RUNES"
+        icon: "abacus"
+        RecycleOne:
+
+    TabbedPanelItem:
+        id: SP_s
+        text: "SP_s"
+        icon: "home"
+        RecycleTwo:
+            # Add Contents here
+            
+
+
+<Game>:
+    MDFloatLayout:
+        
+        Image:
+            pos_hint: {'x': 0.0,'y': -0.2}
+            size_hint: 1.5, 1.5
+            source: "ASSETS/BACKGROUND.jpeg"
+            allow_stretch: True
+
+        Button:
+            id: LOBBY_G
+            background_normal: "ASSETS/wood3.jpeg"
+            text: 'LOBBY_G'
+            size_hint: .4, .05
+            pos_hint: {'x': 0, 'y': .95}
+
+        Button:
+            id: POINTS
+            background_normal: "ASSETS/wood4.jpeg"
+            text: 'POINTS'
+            size_hint: .4, .05
+            pos_hint: {'x': .4, 'y': .95}
+
+        Button:
+            id: QUIT
+            text: "QUIT"
+            size_hint: .2, .05
+            pos_hint: {'x': .8, 'y': .95}
+            on_press: root.home_it()
+
+        Button:
+            id: Hit_Me
+            text:'Hit_Me'
+            background_normal: "ASSETS/JOKER.jpg"
+            size_hint: .2, .2
+            pos: 230, 250
+            on_press: root.at_hand()
+
+        Button:
+            id: Hit_Me
+            text:'Hit_Me'
+            background_normal: "ASSETS/JOKER.jpg"
+            size_hint: .2, .2
+            pos: 10, 250
+            on_press: root.at_hand()
+
+        Button:
+            id: oppTable
+            text: 'OPP_TABLE'
+            size_hint: .95, .2
+            pos_hint: {'x': 0.025,'y': 0.64}
+
+        Button:
+            id: myTable
+            text: 'MY_TABLE'
+            size_hint: .95, .2
+            pos_hint: {'x': 0.025,'y': 0.25}
+
+        Button:
+            id: oppIcon
+            text: "ICON"
+            size_hint: .2, .12
+            pos_hint: {'x': 0.4,'y': 0.83}
+        Button:
+            id: oppName
+            text: "OppName"
+            size_hint: .45, .02
+            pos_hint: {'x': 0.28,'y': 0.82}
+
+        Button:
+            id: myIcon
+            text: "ICON"
+            size_hint: .2, .12
+            pos_hint: {'x': 0.4,'y': 0.45}
+        Button:
+            id: myName
+            text: "ICON"
+            size_hint: .45, .02
+            pos_hint: {'x': 0.28,'y': 0.45}
+
+
+        TABS:
+            size_hint: 1, .25
+            pos_hint: {'x': 0.0,'y': 0.0}
+
+
+
