@@ -66,11 +66,6 @@
             pos_hint: {'x': 0.105,'y': 0.01}
             on_press: root.ads()
 
-        Button:
-            text: "TEST_RECYLE"
-            size_hint: .5, .5
-            pos_hint: {'x': 0.0,'y': 0.0}
-            on_press: root.test_recyle()
 
 <Register>:
     MDFloatLayout:
@@ -150,10 +145,22 @@
             pos_hint: {'x': 0.0,'y': 0.6}
 
         TextInput:
-            id: Date
-            hint_text: 'Birth_Date'
-            size_hint: 1, .2
+            id: Birth_DAY
+            hint_text: 'Birth_DAY'
+            size_hint: .2, .2
             pos_hint: {'x': 0.0,'y': 0.4}
+        TextInput:
+            id: Birth_MONTH
+            hint_text: 'Birth_MONTH'
+            size_hint: .2, .2
+            pos_hint: {'x': 0.2,'y': 0.4}
+        TextInput:
+            id: Birth_YEAR
+            hint_text: 'Birth_YEAR'
+            size_hint: .3, .2
+            pos_hint: {'x': 0.4,'y': 0.4}
+
+
         Button:
             id: Login
             text: "LOGIN"
@@ -184,6 +191,10 @@
         Button:
             text: 'LOADING...'
             on_press: root.Start()
+        Button:
+            text: 'NO_CONNECTIONS'
+            pos_hint: {'x': 500.0,'y': 0.0}
+
 
 <AdsBank>:
     id: AdsBank

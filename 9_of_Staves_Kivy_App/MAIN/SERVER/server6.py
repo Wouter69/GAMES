@@ -6,7 +6,7 @@ import threading
 from File_S import File_man
 from deck import Deck
 import time
-import pickle
+
 
 class server():
     def __init__(self, **kwargs):
@@ -18,7 +18,6 @@ class server():
         self.host = '127.0.0.1'
         self.port = 8085
         self.addr = (self.host, self.port)
-
 
         #ADD MAP for CLIENT PROFILES, 
 
@@ -35,8 +34,6 @@ class server():
         #ACTIVE PLAYING GROUPS
         self.CLIENT_GROUPS = []
         self.LOGGED_IN = []
-
-
 
 
         #bASE VARS
@@ -123,9 +120,7 @@ class server():
                 cards = self.D.Deck_List
 
                 for card in cards:
-#                    if "SET" not in card:
                     DECK.append("C&"+card+"@")
-#                DECK.append("SET@")
 
                 for card in DECK:
                     conn1.send(card.encode())
@@ -253,7 +248,7 @@ class server():
             print(str(e), "CHECK_LIST")
 
     def check_player(self, data):
-        print("CHECKING_PLAYER", data)
+        print("CHECKING_PLAYER", str(data))
         user = data.split("@")
         User = str(user[1]).translate(str.maketrans('','',string.punctuation))
         Date = str(user[2]).translate(str.maketrans('','',string.punctuation))
@@ -306,10 +301,6 @@ class server():
                 else:
                     
                     print("msg..", data, " BY ", addr)
-                    
-                    if "HI" in str(data):
-                        conn.send("HELLO::\0".encode())
-                        print()
 
                     if "PLAYER" in data or "PROFILE" in data:
                         print("PLAYER_UPDATE::: ", str(data))

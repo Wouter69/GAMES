@@ -4,11 +4,14 @@
 ######## 3) F_Tree CREATOR
 
 #LIB REQD IMPORTS
+import sys
 from functools import partial
-from http import server
 import time
 import string
 import threading
+import errno
+from socket import error as sock_error
+
 #KIVY IMPORTS
 from kivy.clock import Clock
 from kivymd.app import MDApp
@@ -17,9 +20,11 @@ from kivy.lang import Builder
 from kivy.core.window import Window
 from kivy.uix.tabbedpanel import TabbedPanel
 from kivy.uix.scrollview import ScrollView
+import requests
 #MY IMPORTS
 from file_handle_C import File_man
 from conns import connections
+
 
 Window.size = (300, 560)
 
@@ -463,13 +468,14 @@ class Register(Screen):
             MDApp.get_running_app().root.current ="LR"
 
 class Welcome(Screen):  # <--- WYANAND's PROBLEM ---> 
-
     def __init__(self, **kw):
         super().__init__(**kw)
         self.FM = File_man()
-        self.pl = self.FM.read_file("Profile.txt")
-        print(str(self.pl))
-        self.ids['Welcome'].text = "WELCOME\n"+str(self.pl)
+        self.NAME = str(self.FM.read_file("Profile.txt"))
+        name = self.NAME.split("@")
+        user = str(name[0]).translate(str.maketrans('','',string.punctuation))
+        self.ids['Welcome'].text = "WELCOME\n"+str(user)
+
 #        <--- TO HERE --->
     def home(self):
         MDApp.get_running_app().root.current ="Home"#  
@@ -479,10 +485,13 @@ class Login(Screen):
         super().__init__(**kw)
         self.FM = File_man()
 
-
     def go(self):
         name = str(self.ids['Name'].text)+"@"
-        birth = str(self.ids['Date'].text)+"@"
+        day = str(self.ids['Birth_DAY'].text)
+        month = str(self.ids['Birth_MONTH'].text)
+        year = str(self.ids['Birth_YEAR'].text)
+
+        birth = day+"#"+month+"#"+year+"#"
         player_data = "PROFILE@"+name+birth
         self.FM.write_file("Player.txt", player_data, "w")
         time.sleep(1.5)
@@ -509,23 +518,45 @@ class Loading(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
         self.FM = File_man()
+        try:
+            self.conn = connections()
+        except sock_error as se:
+            print("??CON_ERROR??(MAIN.py)",str(se))
+
 
     def Start(self):
-        
+        try:
+            self.recv = threading.Thread(target=self.conn.get_msg)
+            print("STARTING_CONNECTION(s)::RECV")
+            self.recv.start()
+        except Exception as e:
+            print("\n\n!!INIT_CONNECTION_ERROR!!\n\n", str(e))
+            raise SystemExit(1)
+
+        try:
+            self.send = threading.Thread(target=self.conn.send_msg)
+            print("STARTING_CONNECTION(s)::SEND")
+            self.send.start()
+
+        except Exception as e:
+            print("\n\n!!INIT_CONNECTION_ERROR!!\n\n", str(e))
+            raise SystemExit(1)
+
+
+
+            
+        # ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^       
         pl = self.FM.read_file("Profile.txt")
-        if len(str(pl)) >= 4:            
+        if len(str(pl)) >= 4:
             MDApp.get_running_app().root.current ="Home"
         else:
             MDApp.get_running_app().root.current ="LR"
-
-
 #MAIN
 class MyMDApp(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         #IMPORT CONTROL
         self.FM = File_man()
-        self.conn = connections()
         self.FM.write_file("GAME.txt", "", "w")
         self.FM.write_file("SERVER.txt", "", "w")
         self.FM.write_file("ADS_BANK.txt", "", "w")
@@ -533,17 +564,6 @@ class MyMDApp(MDApp):
         self.FM.write_file("game_over.txt", "", "w")
         self.FM.write_file("Player.txt", "", "w")
  
-        #TO BE MOVED TO LOADING....
-        self.recv = threading.Thread(target=self.conn.get_msg)
-        self.watch = threading.Thread(target=self.conn.send_msg)
-        try:
-            print("STARTING_CONNECTION(s)")
-            self.recv.start()
-            self.watch.start()
-        except:
-            print("\n\n!!INIT_CONNECTION_ERROR!!\n\n")
-        # ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
-
     def build(self):
         #REMEMBER TO UPDATE ALL FILES ON STARTUP
         Builder.load_file("main.kv")
