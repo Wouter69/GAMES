@@ -20,7 +20,7 @@
         Image:
             pos_hint: {'x': 0.0,'y': -0.2}
             size_hint: 1.5, 1.5
-            source: "ASSETS/BACKGROUND.jpeg"
+            source: "ASSETS/Background.png"
             allow_stretch: True
 
 
@@ -187,14 +187,41 @@
 
 
 <Loading>:
-    MDFloatLayout:
-        Button:
-            text: 'LOADING...'
-            on_press: root.Start()
-        Button:
-            text: 'NO_CONNECTIONS'
-            pos_hint: {'x': 500.0,'y': 0.0}
+    BoxLayout:
+        orientation: "vertical"
+        canvas.before:
+            Rectangle:
+                id: png
+                source: "ASSETS/Background.png"
+                size: self.size
+                pos: self.pos
 
+        Image:
+            id: png
+            source: "ASSETS/LogoW.png"
+
+            size_hint: 1, .3
+
+        Image:
+            id: zip
+            source: "ASSETS/AirLoading.zip"
+            anim_delay: .1
+            anim_loop: 1
+
+            size_hint: 1, .6
+
+#        Button:
+#            background_color: 0,1,0,1
+#            on_press: root.Start()
+#            size_hint: None, None
+#            size: '80dp', '40dp'
+#            pos_hint: {"center_x": .5}
+
+        Label:
+            text: "Powered by Wayfinder Realm"
+            font_name: "ASSETS/CelticGaramondthe2nd.ttf"
+            font_size: 12
+            size_hint: 1, .1
 
 <AdsBank>:
     id: AdsBank
@@ -344,7 +371,7 @@
         Image:
             pos_hint: {'x': 0.0,'y': -0.2}
             size_hint: 1.5, 1.5
-            source: "ASSETS/BACKGROUND.jpeg"
+            source: "ASSETS/Background.png"
             allow_stretch: True
 
         Button:

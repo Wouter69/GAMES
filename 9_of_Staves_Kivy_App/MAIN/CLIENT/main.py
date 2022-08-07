@@ -1,7 +1,7 @@
 #TODO:::  
-######## 1) LOAD DECK
+######## 1) LOAD DECK (SOCKET_ISSUE) [TRY: ONE CARD AT A TIME...]
 ######## 2) ALLOCATE SELECTED CARD TO CORRECT TAB_PLACEMENT
-######## 3) F_Tree CREATOR
+######## 3) 
 
 #LIB REQD IMPORTS
 import sys
@@ -13,6 +13,7 @@ import errno
 from socket import error as sock_error
 
 #KIVY IMPORTS
+from kivy.uix.boxlayout import BoxLayout
 from kivy.clock import Clock
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -25,9 +26,10 @@ import requests
 from file_handle_C import File_man
 from conns import connections
 
-
 Window.size = (300, 560)
 
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#GAME_
 #*********************************************************
 class Game(Screen):
     def __init__(self, **kw):
@@ -188,7 +190,6 @@ class Game(Screen):
 
 class TABS(TabbedPanel):
     pass
-
 class Recycle(ScrollView):
     def __init__(self, **kw):
         super().__init__(**kw)
@@ -207,7 +208,6 @@ class RecycleTwo(ScrollView):
         pass
     def card(self):
         print("TOUCHED")
-
 class Score(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
@@ -467,7 +467,7 @@ class Register(Screen):
             print("NOT_LOGGED_IN")
             MDApp.get_running_app().root.current ="LR"
 
-class Welcome(Screen):  # <--- WYANAND's PROBLEM ---> 
+class Welcome(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
         self.FM = File_man()
@@ -476,7 +476,6 @@ class Welcome(Screen):  # <--- WYANAND's PROBLEM --->
         user = str(name[0]).translate(str.maketrans('','',string.punctuation))
         self.ids['Welcome'].text = "WELCOME\n"+str(user)
 
-#        <--- TO HERE --->
     def home(self):
         MDApp.get_running_app().root.current ="Home"#  
 
@@ -514,17 +513,16 @@ class LR(Screen):
     def Register(self):
         MDApp.get_running_app().root.current ="Register"
 
-class Loading(Screen):
+class Loading(BoxLayout):
     def __init__(self, **kw):
         super().__init__(**kw)
         self.FM = File_man()
+
         try:
             self.conn = connections()
         except sock_error as se:
             print("??CON_ERROR??(MAIN.py)",str(se))
-
-
-    def Start(self):
+        
         try:
             self.recv = threading.Thread(target=self.conn.get_msg)
             print("STARTING_CONNECTION(s)::RECV")
@@ -543,14 +541,22 @@ class Loading(Screen):
             raise SystemExit(1)
 
 
+        self.sec = 0
+        Clock.schedule_interval(self.update_time, 1)
 
-            
-        # ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^       
-        pl = self.FM.read_file("Profile.txt")
-        if len(str(pl)) >= 4:
+
+    def update_time(self, sec):
+        self.sec = self.sec + 1
+#        print("LOADING:: ", str(self.sec))
+        if self.sec == 8:
+            Clock.unschedule(self.update_time)
             MDApp.get_running_app().root.current ="Home"
-        else:
-            MDApp.get_running_app().root.current ="LR"
+            pl = self.FM.read_file("Profile.txt")
+            if len(str(pl)) >= 4:
+                MDApp.get_running_app().root.current ="Home"
+            else:
+                MDApp.get_running_app().root.current ="LR"
+
 #MAIN
 class MyMDApp(MDApp):
     def __init__(self, **kwargs):
