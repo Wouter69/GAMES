@@ -1,7 +1,7 @@
 
 
 import os
-from cryptography.fernet import Fernet
+
 from pathlib import Path
 
 
@@ -73,19 +73,3 @@ class File_man():
 
 
 
-#FOR LATER ON...
-    
-    def load_key(self):   
-        """
-        Loads the key from the current directory named `key.key`
-        """
-        return open("login.txt", "rb").read()
-
-
-    def write_key():
-        """
-        Generates a key and save it into a file
-        """
-        key = Fernet.generate_key()
-        with open("key.key", "wb") as key_file:
-            key_file.write(key)    
