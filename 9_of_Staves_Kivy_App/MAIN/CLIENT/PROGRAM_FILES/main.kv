@@ -1,0 +1,797 @@
+#: import Factory kivy.factory.Factory
+
+
+<Lobby>:
+    MDFloatLayout:
+        Button:
+            id: Lobby
+            text: 'READY?'
+            size_hint: 1, .5
+            pos_hint: {'x': 0.0,'y': 0.5}
+            on_press: root.Ready()
+        Button:
+            id: Back
+            text: "BACK"
+            size_hint: 1, .5
+            pos_hint: {'x': 0.0,'y': 0.0}
+            on_press: root.Back()
+
+
+<AdsBank>:
+    id: AdsBank
+    MDFloatLayout:
+        Button: 
+            text: "PLAYING_AD"
+            id: back
+            on_press: root.play()
+
+<Score>:
+    id: Score
+    Button:
+        id: back
+        text:'GAME_OVER'
+        on_press: root.home()
+
+#MAIN_DECK_LIST
+<Recycle>:
+    #MAIN T_M_B CARDS
+    do_scroll_x: True
+    orientation:'horizontal'
+    GridLayout:
+        rows: 1      
+
+        size_hint_x: 3.5
+        size_hint_min_x: None
+        Button:
+            on_press: print("FUCKIT1")
+        Button:
+            id: bone
+        Button:
+            id: btwo
+        Button:
+            id: bthree
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+            on_press: print("FUCKIT2")
+<RecycleOne>:
+    #RUNE CARDS
+    do_scroll_x: True
+    orientation:'horizontal'
+    GridLayout:
+        rows: 1      
+
+        size_hint_x: 3.5
+        size_hint_min_x: None
+        Button:
+            on_press: print("FUCKIT1")
+        Button:
+            id: bone
+        Button:
+            id: btwo
+        Button:
+            id: bthree
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+        Button:
+            on_press: print("FUCKIT2")
+<RecycleTwo>:
+    #SP_CARDS
+    do_scroll_x: True
+    orientation:'horizontal'
+    GridLayout:
+        rows: 1      
+
+        size_hint_x: 3.5
+        size_hint_min_x: None
+        Button:
+            background_normal: "ASSETS/cards/JOKER.jpg"
+            on_press: print("FUCKIT1")
+            on_release: root.card()
+        Button:
+            background_normal: "ASSETS/cards/JOKER.jpg"
+            id: bone
+        Button:
+            background_normal: "ASSETS/cards/JOKER.jpg"
+            id: btwo
+        Button:
+            background_normal: "ASSETS/cards/JOKER.jpg"
+            id: bthree
+        Button:
+            background_normal: "ASSETS/cards/JOKER.jpg"
+        Button:
+            background_normal: "ASSETS/cards/JOKER.jpg"
+        Button:
+            background_normal: "ASSETS/cards/JOKER.jpg"
+        Button:
+            background_normal: "ASSETS/cards/JOKER.jpg"
+        Button:
+            background_normal: "ASSETS/cards/JOKER.jpg"
+        Button:
+            background_normal: "ASSETS/cards/JOKER.jpg"
+        Button:
+            background_normal: "ASSETS/cards/JOKER.jpg"
+        Button:
+            background_normal: "ASSETS/cards/JOKER.jpg"
+        Button:
+            background_normal: "ASSETS/cards/JOKER.jpg"
+            on_press: print("FUCKIT2")
+
+<TABS>:
+    do_default_tab: False
+    TabbedPanelItem:
+        id: MAIN
+        text: "MAIN"
+        icon: "home"
+        Recycle:
+
+    TabbedPanelItem:
+        id: RUNES
+        text: "RUNES"
+        icon: "abacus"
+        RecycleOne:
+
+    TabbedPanelItem:
+        id: SP_s
+        text: "SP_s"
+        icon: "home"
+        RecycleTwo:
+            # Add Contents here
+
+<Game>:
+    MDFloatLayout:
+        
+        Image:
+            pos_hint: {'x': 0.0,'y': -0.2}
+            size_hint: 1.5, 1.5
+            source: "ASSETS/back/Background.png"
+            allow_stretch: True
+
+        Button:
+            id: LOBBY_G
+            #background_normal: "ASSETS/wood3.jpeg"
+            text: 'LOBBY_G'
+            size_hint: .4, .05
+            pos_hint: {'x': 0, 'y': .95}
+
+        Button:
+            id: POINTS
+            #background_normal: "ASSETS/wood4.jpeg"
+            text: 'POINTS'
+            size_hint: .4, .05
+            pos_hint: {'x': .4, 'y': .95}
+
+        Button:
+            id: QUIT
+            text: "QUIT"
+            size_hint: .2, .05
+            pos_hint: {'x': .8, 'y': .95}
+            on_press: root.home_it()
+
+        Button:
+            id: Hit_Me
+            text:'Hit_Me'
+            background_normal: "ASSETS/cards/JOKER.jpg"
+            size_hint: .2, .2
+            pos: 230, 250
+            on_press: root.at_hand()
+
+        Button:
+            id: Hit_Me
+            text:'Hit_Me'
+            background_normal: "ASSETS/cards/JOKER.jpg"
+            size_hint: .2, .2
+            pos: 10, 250
+            on_press: root.at_hand()
+
+        Button:
+            id: oppTable
+            text: 'OPP_TABLE'
+            size_hint: .95, .2
+            pos_hint: {'x': 0.025,'y': 0.64}
+
+        Button:
+            id: myTable
+            text: 'MY_TABLE'
+            size_hint: .95, .2
+            pos_hint: {'x': 0.025,'y': 0.25}
+
+        Button:
+            id: oppIcon
+            text: "ICON"
+            size_hint: .2, .12
+            pos_hint: {'x': 0.4,'y': 0.83}
+        Button:
+            id: oppName
+            text: "OppName"
+            size_hint: .45, .02
+            pos_hint: {'x': 0.28,'y': 0.82}
+
+        Button:
+            id: myIcon
+            text: "ICON"
+            size_hint: .2, .12
+            pos_hint: {'x': 0.4,'y': 0.45}
+        Button:
+            id: myName
+            text: "ICON"
+            size_hint: .45, .02
+            pos_hint: {'x': 0.28,'y': 0.45}
+
+        TABS:
+            size_hint: 1, .25
+            pos_hint: {'x': 0.0,'y': 0.0}
+
+
+<Home>:
+    BoxLayout:
+        spacing: dp(40)
+        padding:dp(10)
+        orientation: "vertical"
+        canvas.before:
+            Rectangle:
+                id: png
+                source: "ASSETS/back/Background.png"
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            size_hint: 1, None
+            width:
+            height: dp(120)
+            #pos_hint: {'center_x': .5, 'Top': .0}
+            Image:
+                id: Icon_
+                source: "ASSETS/PlayerIcon/SagittariusM.png"
+                size_hint: None, None
+                width: dp(120)
+                height: dp(120)
+            Label:
+                id: Player
+                text: 'Pampoen Pit'
+                #text_size: self.width,None
+                color: 1,1,1,1
+                bold: True
+                outline_color: 0,0,0,1
+                outline_width: 3
+                font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+                font_size: 25
+                size_hint: self.width,None
+                width:
+                height: dp(40)
+        Button:
+            text: "Store"
+            color: 0,0,0,1
+            font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+            font_size: 20
+            color: 190/255,147/255,97/255,1
+            size_hint: .5, None
+            width:
+            height: dp(80)
+            pos_hint: {'center_x': .5}
+            background_color: 79/255,41/255,9/255,1
+            on_press: root.ads()
+        Button:
+            text: "Play"
+            color: 0,0,0,1
+            font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+            font_size: 20
+            color: 190/255,147/255,97/255,1
+            size_hint: .5, None
+            width:
+            height: dp(80)
+            pos_hint: {'center_x': .5}
+            background_color: 79/255,41/255,9/255,1
+            on_press: root.move()
+        Button:
+            text: "Rank"
+            color: 0,0,0,1
+            font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+            font_size: 20
+            color: 190/255,147/255,97/255,1
+            size_hint: .5, None
+            width:
+            height: dp(80)
+            pos_hint: {'center_x': .5}
+            background_color: 79/255,41/255,9/255,1
+        Button:
+            text: "Settings"
+            color: 0,0,0,1
+            font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+            font_size: 20
+            color: 190/255,147/255,97/255,1
+            size_hint: .5, None
+            width:
+            height: dp(40)
+            background_color: 79/255,41/255,9/255,1
+
+<Welcome>:
+    auto_dismiss: False
+    size_hint: .9, .5
+    pos_hint:{'center_x': .5, 'center_y': .5}
+    #separator_color: 0,0,0,0
+    title:''
+    title_font: "ASSETS/font/CelticGaramondthe2nd.ttf"
+    title_size: 0
+    title_align: 'center'
+    title_color: 0,0,0,1
+    separator_height: dp(0)
+    background: 'ASSETS/back/PopupB.jpg'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(5)
+        Label:
+            text: 'Welcome'
+            text_size: None, None
+            valign: 'center'
+            color: 0,0,0,1
+            font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+            font_size: 18
+            size_hint: 1, None
+            width:
+            height: dp(30)
+        Label:
+            id: WelcomeName
+            text: 'Name of Player'
+            text_size: None,None
+            valign: 'center'
+            color: 0,0,0,1
+            font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+            font_size: 16
+            size_hint: 1, None
+            width:
+            height: dp(30)
+        Label:
+            text: 'You currently rank at:'
+            text_size: None,None
+            valign: 'center'
+            color: 0,0,0,1
+            font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+            font_size: 16
+            size_hint: 1, None
+            width:
+            height: dp(30)
+        Label:
+            id: Rank
+            text: 'Rank'
+            text_size: None,None
+            valign: 'center'
+            color: 0,0,0,1
+            font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+            font_size: 25
+            size_hint: 1, None
+            width:
+            height: dp(70)
+        Button:
+            text: "Continue"
+            color: 190/255,147/255,97/255,1
+            font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+            font_size: 16
+            size_hint: .5, None
+            width:
+            height: dp(40)
+            pos_hint: {'center_x': .5}
+            on_press: root.Continue(), root.dismiss(), Factory.Home()
+            background_color: 79/255,41/255,9/255,1
+        Button:
+            text: "LOGIN/REGISTER"
+            color: 190/255,147/255,97/255,1
+            font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+            font_size: 10
+            size_hint: .6, None
+            width:
+            height: dp(40)
+            pos_hint: {'center_x': .45}
+            on_press: root.LR(), root.dismiss(), Factory.Home()
+            background_color: 79/255,41/255,9/255,1
+<Register>:
+    auto_dismiss: False
+    size_hint: .9, .9
+    pos_hint:{'center_x': .5, 'center_y': .5}
+    #separator_color: 0,0,0,0
+    title:'Registration Form'
+    title_font: "ASSETS/font/CelticGaramondthe2nd.ttf"
+    title_size: 20
+    title_align: 'center'
+    title_color: 0,0,0,1
+    separator_height: dp(0)
+    background: 'ASSETS/back/PopupB.jpg'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(5)
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: 1, None
+            width:
+            height: dp(70)
+            Label:
+                text: 'Pick a Username:'
+                text_size: self.width,None
+                align: 'left'
+                color: 0,0,0,1
+                font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+                font_size: 16
+                size_hint: 1, None
+                width:
+                height: dp(30)
+            TextInput:
+                id: Name
+                background_color: 190/255,147/255,97/255,1
+                size_hint: 1, None
+                width:
+                height: dp(40)
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: 1, None
+            width:
+            height: dp(70)
+            Label:
+                text: 'Birthday:'
+                text_size: self.width,None
+                align: 'left'
+                color: 0,0,0,1
+                font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+                font_size: 16
+                size_hint: 1, None
+                width:
+                height: dp(30)
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: dp(10)
+                Label:
+                    text: 'D'
+                    color: 0,0,0,1
+                    font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+                    font_size: 12
+                    size_hint: .2, None
+                    width:
+                    height: dp(40)
+                TextInput:
+                    id: Day_Date
+                    hint_text: '00'
+                    background_color: 190/255,147/255,97/255,1
+                    size_hint: .5, None
+                    width:
+                    height: dp(40)
+                Label:
+                    text: 'M'
+                    color: 0,0,0,1
+                    font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+                    font_size: 12
+                    size_hint: .2, None
+                    width:
+                    height: dp(40)
+                TextInput:
+                    id: Month_Date
+                    hint_text: '00'
+                    background_color: 190/255,147/255,97/255,1
+                    size_hint: .5, None
+                    width:
+                    height: dp(40)
+                Label:
+                    text: 'Y'
+                    color: 0,0,0,1
+                    font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+                    font_size: 12
+                    size_hint: .2, None
+                    width:
+                    height: dp(40)
+                TextInput:
+                    id: Year_Date
+                    hint_text: '0000'
+                    background_color: 190/255,147/255,97/255,1
+                    size_hint: 1, None
+                    width:
+                    height: dp(40)
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: 1, None
+            width:
+            height: dp(70)
+            Label:
+                text: 'Country of Origin:'
+                text_size: self.width,None
+                align: 'left'
+                color: 0,0,0,1
+                font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+                font_size: 16
+                size_hint: 1, None
+                width:
+                height: dp(30)
+            TextInput:
+                id: Country
+                background_color: 190/255,147/255,97/255,1
+                size_hint: 1, None
+                width:
+                height: dp(40)
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: 1, None
+            width:
+            height: dp(70)
+            Label:
+                text: 'E-mail:'
+                text_size: self.width,None
+                align: 'left'
+                color: 0,0,0,1
+                font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+                font_size: 16
+                size_hint: 1, None
+                width:
+                height: dp(30)
+            TextInput:
+                id: input_RegMail
+                background_color: 190/255,147/255,97/255,1
+                size_hint: 1, None
+                width:
+                height: dp(40)
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: 1, None
+            width:
+            height: dp(70)
+            Label:
+                text: 'Gender:'
+                text_size: self.width,None
+                align: 'left'
+                color: 0,0,0,1
+                font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+                font_size: 16
+                size_hint: 1, None
+                width:
+                height: dp(30)
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: dp(10)
+                ToggleButton:
+                    id: Female
+                    text: 'Female'
+                    background_color: 190/255,147/255,97/255,1
+                    font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+                    font_size: 16
+                    size_hint: .5, None
+                    width:
+                    height: dp(40)
+                    on_press: root.icon_select('Female')
+                ToggleButton:
+                    id: Male
+                    text: 'Male'
+                    background_color: 190/255,147/255,97/255,1
+                    font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+                    font_size: 16
+                    size_hint: .5, None
+                    width:
+                    height: dp(40)
+                    on_press: root.icon_select("Male")
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, None
+            width:
+            height: dp(60)
+            spacing: dp(10)
+            Button:
+                text: "Back"
+                color: 190/255,147/255,97/255,1
+                font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+                font_size: 16
+                size_hint: .5, None
+                width:
+                height: dp(40)
+                pos_hint: {'center_x': .5}
+                on_release: root.dismiss(), Factory.Login().open()
+                background_color: 79/255,41/255,9/255,1
+            Button:
+                text: "Submit"
+                color: 190/255,147/255,97/255,1
+                font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+                font_size: 16
+                size_hint: .5, None
+                width:
+                height: dp(40)
+                pos_hint: {'center_x': .5}
+                on_release: root.submit(), root.dismiss(), Factory.Welcome().open()
+                background_color: 79/255,41/255,9/255,1
+
+
+<Login>:
+    auto_dismiss: False
+    size_hint: .9, .9
+    pos_hint:{'center_x': .5, 'center_y': .5}
+    #separator_color: 0,0,0,0
+    title:'Welcome to the Tournament'
+    title_font: "ASSETS/font/CelticGaramondthe2nd.ttf"
+    title_size: 20
+    title_align: 'center'
+    title_color: 0,0,0,1
+    separator_height: dp(0)
+    background: 'ASSETS/back/PopupB.jpg'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(5)
+        Label:
+            text: 'Are you a Contestant?'
+            text_size: self.width,None
+            align: 'left'
+            color: 0,0,0,1
+            font_name:  "ASSETS/font/CelticGaramondthe2nd.ttf"
+            font_size: 16
+            size_hint: 1, None
+            width:
+            height: dp(40)
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: 1, None
+            width:
+            height: dp(80)
+            Label:
+                text: 'Username:'
+                text_size: self.width,None
+                align: 'left'
+                color: 0,0,0,1
+                font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+                font_size: 14
+                size_hint: 1, None
+                width:
+                height: dp(40)
+            TextInput:
+                id: Name
+                background_color: 190/255,147/255,97/255,1
+                size_hint: 1, None
+                width:
+                height: dp(40)
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: 1, None
+            width:
+            height: dp(80)
+            Label:
+                text: 'Birthdate:'
+                text_size: self.width,None
+                align: 'left'
+                color: 0,0,0,1
+                font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+                font_size: 14
+                size_hint: 1, None
+                width:
+                height: dp(40)
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: dp(10)
+                Label:
+                    text: 'D'
+                    color: 0,0,0,1
+                    font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+                    font_size: 12
+                    size_hint: .2, None
+                    width:
+                    height: dp(40)
+                TextInput:
+                    id: Birth_DAY
+                    hint_text: '00'
+                    background_color: 190/255,147/255,97/255,1
+                    size_hint: .5, None
+                    width:
+                    height: dp(40)
+                Label:
+                    text: 'M'
+                    color: 0,0,0,1
+                    font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+                    font_size: 12
+                    size_hint: .2, None
+                    width:
+                    height: dp(40)
+                TextInput:
+                    id: Birth_MONTH
+                    hint_text: '00'
+                    background_color: 190/255,147/255,97/255,1
+                    size_hint: .5, None
+                    width:
+                    height: dp(40)
+                Label:
+                    text: 'Y'
+                    color: 0,0,0,1
+                    font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+                    font_size: 12
+                    size_hint: .2, None
+                    width:
+                    height: dp(40)
+                TextInput:
+                    id: Birth_YEAR
+                    hint_text: '0000'
+                    background_color: 190/255,147/255,97/255,1
+                    size_hint: 1, None
+                    width:
+                    height: dp(40)
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: 1, None
+            width:
+            height: dp(80)
+            Label:
+                text: 'Country:'
+                text_size: self.width,None
+                align: 'left'
+                color: 0,0,0,1
+                font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+                font_size: 14
+                size_hint: 1, None
+                width:
+                height: dp(40)
+            TextInput:
+                id: Country
+                background_color: 190/255,147/255,97/255,1
+                size_hint: 1, None
+                width:
+                height: dp(40)
+        Button:
+            id: Login
+            text: "Submit"
+            color: 190/255,147/255,97/255,1
+            font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+            font_size: 16
+            size_hint: .5, None
+            width:
+            height: dp(40)
+            pos_hint: {'center_x': .5}
+            #on_release: root.dismiss(),Factory.Welcome().open()
+            background_color: 79/255,41/255,9/255,1
+            on_press: root.go(), root.dismiss()#, Factory.Welcome.open()
+
+        Label:
+            text: 'If not a Contestant?'
+            color: 0,0,0,1
+            font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+            font_size: 16
+            size_hint: 1, None
+            width:
+            height: dp(40)
+        Button:
+            id: Register
+            text: "Register"
+            color: 190/255,147/255,97/255,1
+            font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+            font_size: 16
+            size_hint: .5, None
+            width:
+            height: dp(40)
+            pos_hint: {'center_x': .5}
+            on_release: root.dismiss(), Factory.Register().open()
+            background_color: 79/255,41/255,9/255,1
+
+
+<Loading>:
+    BoxLayout:
+        orientation: "vertical"
+        canvas.before:
+            Rectangle:
+                id: png
+                source: "ASSETS/back/Background.png"
+                size: self.size
+                pos: self.pos
+        Image:
+            id: png
+            source: "ASSETS/LogoW.png"
+            size_hint: 1, .3
+        Image:
+            id: zip
+            source: "ASSETS/AirLoading.zip"
+            anim_delay: .1
+            anim_loop: 1
+            size_hint: 1, .6
+        Label:
+            text: "Powered by Wayfinder Realm"
+            font_name: "ASSETS/font/CelticGaramondthe2nd.ttf"
+            font_size: 12
+            size_hint: 1, .1
